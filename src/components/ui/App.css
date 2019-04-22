@@ -1,7 +1,7 @@
 
 .App {
   text-align: center;
-  // font: 14px "Times New Roman", Futura, sans-serif;
+  /* font: 14px "Times New Roman", Futura, sans-serif; */
 }
 
 
@@ -84,7 +84,7 @@ h3 {
 #top {
     display: inline-block;
     width: 900px;
-//    border: 2px solid green;
+/*    border: 2px solid green; */
 }
 
 
@@ -95,7 +95,7 @@ h3 {
 }
 
 #controls > div, p {
-     // border: 1px solid green;
+     /* border: 1px solid green; */
 }
 
 .pickDay{
@@ -109,7 +109,7 @@ button{
 
 #today-section {
     height: 70px;
-    // border: 2px solid green;
+    /* border: 2px solid green; */
 }
 
 #today-section p{
@@ -131,8 +131,8 @@ button{
 
 #choosing  {
     text-align: left;
-    // height: 70px;
-    // border: 2px solid green;
+    /* height: 70px; 
+     border: 2px solid green;*/
 }
 
 #colorPane {
@@ -147,8 +147,8 @@ button{
 
 .barsq p, .barselect p {
   margin-bottom: 0px; 
-  // font-family: "Georgia";
-  // border: 1px solid green;
+  /* font-family: "Georgia";
+   border: 1px solid green; */
 }
 
 .barsq{
