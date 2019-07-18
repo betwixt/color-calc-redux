@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
-import './App.css';
+// import './App.css';
 
 // WeekBar - Expected props:  
 //   *startDay - Date for first day in the bar

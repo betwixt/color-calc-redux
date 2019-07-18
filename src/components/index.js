@@ -2,7 +2,8 @@ import React, {Component} from 'react'
 import { Provider } from 'react-redux'
 
 import storeFactory from '../store'
-import ColorCalc from './ui/ColorCalc'
+// import ColorCalc from './ui/ColorCalc'
+import ColorCalcWithPeople from './ui/ColorCalcWithPeople'
 import sampleData from '../initialState.json'
 import { colorInfo } from './colorData'
 
@@ -15,7 +16,7 @@ class App extends Component {
   render() {
     return (
        <Provider store={store}>
-         <ColorCalc />
+         <ColorCalcWithPeople />
        </Provider>
     )
   }
