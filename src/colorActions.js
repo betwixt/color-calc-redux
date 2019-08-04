@@ -1,26 +1,10 @@
+import axios from 'axios';
+import * as moment from 'moment';
+
 import C from './colorConstants'
-import {daysInMonth} from './components/colorData'
-import {computeForDate, computeWeekStartingOn, dateObjFromString } from './components'
+import {daysInMonth, months} from './components/colorData'
+import {computeForDate, computeWeekStartingOn } from './components'
 
-// SET_BMONTH: "SET_BMONTH",
-// SET_BCALDAY: "SET_BCALDAY",
-// SET_MAXDAYS: "SET_MAXDAYS",
-// SET_CURRENTDATE: "SET_CURRENTDATE",
-// SET_CHOSENDATE: "SET_CHOSENDATE",
-// SET_TARGETDATE: "SET_TARGETDATE",
-// SET_COLORPANE: "SET_COLORPANE
-
-// Leave out for now, just show every time, default start date is today
-// SHOW_WEEKBAR: "SHOW_WEEKBAR",
-// HIDE_WEEKBAR: "HIDE_WEEKBAR",
-
-// maybe not needed, same as setTargetDate
-// SHOW_TODAY: "SHOW_TODAY",
-// SHOW_CHOSENDAY: "SHOW_CHOSENDAY",
-// SHOW_BARDAY: "SHOW_BARDAY",
-
-// SET_BARINFO: "SET_BARINFO",
-// SET_WEEKSELECT: "SET_WEEKSELECT"
 
 // Action Creators: will return an action object with type (constant) and payload (some type of argument value)
 // With Thunk package, can also return a function - (dispatch,getState)=>{stuff}
@@ -56,6 +40,24 @@ export const setBirthCalDay = num => dispatch => {
     })
 }
 
+export const setTodayColor = num =>
+	({
+		type: C.SET_TODAYCOLOR,
+		payload: num
+	})
+	
+export const setBdayOptions = arr =>
+	({
+		type: C.SET_BDAYOPTIONS,
+		payload: arr
+	})
+	
+export const setSubjListCurrent= bool =>
+	({
+		type: C.SET_SUBJ_LIST_CURR,
+		payload: bool
+	})
+	
 export const setChosenDate = dateStr =>
 	({
 		type: C.SET_CHOSENDATE,
@@ -89,31 +91,100 @@ export const setWeekSelect = num =>
 	
 export function showTodayColor(){ 
 	return (dispatch, getState) => {
-		const {birthval, chosenDate, colorPane, weekbar} = getState();
-		const now = new Date();
-		const todayStr = new Date(+now - now.getTimezoneOffset() * 60 * 1000).toISOString().slice(0,10);
-		dispatch( setColorPane(computeForDate(todayStr, birthval.bmonth, birthval.bcalday)) );
+        let today = getState().todayColor;
+		// const now = new Date();
+		// const todayStr = new Date(+now - now.getTimezoneOffset() * 60 * 1000).toISOString().slice(0,10);
+		// dispatch( setColorPane(computeForDate(todayStr, birthval.bmonth, birthval.bcalday)) );
+		dispatch( setColorPane(today) );
 	}
 }
 
+
+// Will be called by the buttons that select subject
+// Change state for subjectString and todayColor
+export function updateSubject(){
+
+	return (dispatch, getState) => {
+		let bmonth = getState().bmonth;
+		let bcalday = getState().bcalday;
+		// This part got moved to Subject container
+        //let m = months[bmonth - 1];
+        //let subjStr = `${m} ${bcalday}`
+
+		console.log(`${moment().format('LLLL')}`)
+
+		const now = new Date();
+		const todayStr = new Date(+now - now.getTimezoneOffset() * 60 * 1000).toISOString().slice(0,10);
+
+		dispatch( setTodayColor(computeForDate(todayStr, bmonth, bcalday)) );
+    }
+}
+
+export function updateSubjectFromList(e, {value}){
+
+	return (dispatch, getState) => {
+		console.log(`value is ${value}`);
+		let bdayVals = value.split(" ");
+
+        dispatch( setBirthMonth( months.indexOf(bdayVals[0]) + 1 ) );
+		dispatch( setBirthCalDay( parseInt(bdayVals[1]) ) );
+		dispatch( updateSubject() );
+    }
+}
+
+// Called when user clicks Save button in Subject component
+export function createSubject(label){
+
+	return (dispatch, getState) => {
+		const mstr = months[getState().bmonth-1]
+		const obj = { name: label, birthMonth: mstr, birthNum: getState().bcalday }
+		// const csrftoken = Cookies.get('csrftoken')
+		// console.log(`cookie returned - ${csrftoken}`);
+		// console.log(`all cookies empty? - ${document.cookie.split(';') ==""}`);
+		
+		axios.post( 'http://127.0.0.1:8000/calc_api/subjects/', obj )
+		   .then(res => { dispatch( getSubjectsFromDB() ); })
+		   .catch ( err => { console.log(`During axios call: ${err}`); })	
+		   
+	    
+    }
+}
+
+export function getSubjectsFromDB() {
+	return (dispatch, getState) => {
+
+	axios.get('http://127.0.0.1:8000/calc_api/subjects/')
+		.then(res => 
+			{  
+			  	let options = res.data.map(item => 
+				{
+					const subjStr = `${item.birthMonth} ${item.birthNum}`;
+					const labelStr = `${subjStr} ~ ${item.name}`;
+					return {  key: labelStr, text: labelStr, value: `${subjStr} ${item.name}`}
+				});
+				dispatch(setBdayOptions(options));
+			})
+		.catch ( err => { console.log(`During axios call: ${err}`); })	
+	}
+}	  
+
 export function showChosenDayColor() {
 	return (dispatch, getState) => {
-		const {birthval, chosenDate, colorPane, weekbar} = getState();
-		dispatch( setColorPane(computeForDate(chosenDate, birthval.bmonth, birthval.bcalday) ) );
+		dispatch( setColorPane(computeForDate(getState().chosenDate, getState().bmonth, getState().bcalday) ) );
 	}
 }
 
 export function showTargetWeek() {
 	return (dispatch, getState) => {
-		const {birthval, chosenDate, colorPane, weekbar} = getState();
 		
+        let chosenDate = getState().chosenDate;
 		// Parse string to get tmonth, tdate and tyear, then set state
 			console.log("converting date string: " + chosenDate);
 		let y = chosenDate.slice(0,4);
 		let m = chosenDate.slice(5,7);
 		let d = chosenDate.slice(8);
 		let dateObj = new Date(y, m-1, d);
-		let bar = computeWeekStartingOn(dateObj, birthval.bmonth, birthval.bcalday);
+		let bar = computeWeekStartingOn(dateObj, getState().bmonth, getState().bcalday);
 		
         dispatch( setBarInfo(bar) );
         dispatch( setWeekActive(true) );

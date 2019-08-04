@@ -1,7 +1,8 @@
 {
-    "birthval": {
-        "bmonth": "1",
-        "bcalday": "1",
+    "bmonth": "1",
+    "bcalday": "1",
+	"birthval": {
+
         "monthSelectVals": [
             true, false, false, false, false, false, 
             false, false, false, false, false, false ],
@@ -12,6 +13,9 @@
             false, false, false, false, false, false, false ],
 		"maxDays": "31"
     },
+	"isSubjListCurrent": true,
+	"bdayOptions": [],
+    "todayColor": "0",
     "chosenDate": "2017-11-1",
     "colorPane" : "0",
     "weekbar": {

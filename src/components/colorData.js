@@ -17,16 +17,16 @@ export const daysInMonth = m
 
 
 let cmap = new Map();
-    cmap.set(0, {title: "A Color", bg: "gray", desc: "======="});
+    cmap.set(0, {title: "A Color", bg: "grey", desc: "======="});
     cmap.set(1, {title: "Red", bg: "red", desc: "Feel great!"});
     cmap.set(2, {title: "Orange", bg: "orange", desc: "Feel great!"});
-    cmap.set(3, {title: "Yellow", bg: "gold", desc: "Feel great!"});
+    cmap.set(3, {title: "Yellow", bg: "yellow", desc: "Feel great!"});
     cmap.set(4, {title: "Green", bg: "green", desc: "Feel great!"});
     cmap.set(5, {title: "Blue", bg: "blue", desc: "Feel great!"});
-    cmap.set(6, {title: "Indigo", bg: "indigo", desc: "Feel great!"});
+    cmap.set(6, {title: "Indigo", bg: "purple", desc: "Feel great!"});
     cmap.set(7, {title: "Purple / Violet", bg: "purple", desc: "Feel great!"});
-    cmap.set(8, {title: "Pink / Beige / Brown", bg: "hotpink", desc: "Feel great!"});
-    cmap.set(9, {title: "Pastels", bg: "powderblue", desc: "Feel great!"});
+    cmap.set(8, {title: "Pink / Beige / Brown", bg: "pink", desc: "Feel great!"});
+    cmap.set(9, {title: "Pastels", bg: "olive", desc: "Feel great!"});
     cmap.set(11, {title: "Black / White", bg: "black", desc: "Feel great!"});
     cmap.set(22, {title: "Coral / Russet", bg: "coral", desc: "Feel great!"});
 export const colorInfo = cmap

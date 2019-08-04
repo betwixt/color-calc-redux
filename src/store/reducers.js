@@ -29,18 +29,27 @@ export function daySelectVals(state=[], action) {
 	}
     return state;
 }
+
 export const maxDays = (state=31, action) =>
     (action.type === C.SET_MAXDAYS) ?
          parseInt(action.payload) :
          state
 
-/* Not really needed		 
-export const currentDate = (state, action) =>
-    (action.type === C.SET_CURRENTDATE) ?
+export const isSubjListCurrent = (state=false, action) =>
+    (action.type === C.SET_SUBJ_LIST_CURR) ?
+         action.payload :
+         state
+		 
+export const bdayOptions = (state=[], action) =>
+    (action.type === C.SET_BDAYOPTIONS) ?
+         action.payload :
+         state
+		 
+export const todayColor = (state=0, action) =>
+    (action.type === C.SET_TODAYCOLOR) ?
          parseInt(action.payload) :
          state
-*/
-
+		 
 export const chosenDate = (state="", action) =>
     (action.type === C.SET_CHOSENDATE) ?
          action.payload :
@@ -72,13 +81,16 @@ export function weekSelectVals(state = [true, false, false, false, false, false,
 
 
 export default combineReducers({
+  bmonth,
+  bcalday,
   birthval: combineReducers({
-    bmonth,
-    bcalday,
     monthSelectVals,
     daySelectVals,
     maxDays
   }),
+  isSubjListCurrent,
+  bdayOptions,
+  todayColor,
   chosenDate,
   colorPane,
   weekbar: combineReducers({

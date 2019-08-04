@@ -72,10 +72,6 @@ export default WeekBar;
 //
 class BarSquare extends React.Component {
 
-  constructor(){
-      super();
-  }
-
   doClickAct() {
     this.props.setColor(this.props.colorNum);
     this.props.setChoice();
