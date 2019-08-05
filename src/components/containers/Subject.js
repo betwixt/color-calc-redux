@@ -1,4 +1,3 @@
-import * as moment from 'moment'
 import { Subject} from '../ui/Parts'
 import { connect } from 'react-redux'
 import { showTodayColor, createSubject } from '../../colorActions'
@@ -6,7 +5,7 @@ import { showTodayColor, createSubject } from '../../colorActions'
 
 const mapStateToSubjProps = state =>   
     ({
-        bdayString: `${moment.months()[state.bmonth-1]} ${state.bcalday}`,
+        bdayString: state.subject,
         todayCode: parseInt(state.todayColor)
     })
 

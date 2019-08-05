@@ -52,10 +52,10 @@ export const setBdayOptions = arr =>
 		payload: arr
 	})
 	
-export const setSubjListCurrent= bool =>
+export const setSubject= str =>
 	({
-		type: C.SET_SUBJ_LIST_CURR,
-		payload: bool
+		type: C.SET_SUBJECT,
+		payload: str
 	})
 	
 export const setChosenDate = dateStr =>
@@ -111,11 +111,10 @@ export function updateSubject(){
         //let m = months[bmonth - 1];
         //let subjStr = `${m} ${bcalday}`
 
-		console.log(`${moment().format('LLLL')}`)
-
 		const now = new Date();
 		const todayStr = new Date(+now - now.getTimezoneOffset() * 60 * 1000).toISOString().slice(0,10);
 
+		dispatch( setSubject(`${moment.months()[bmonth-1]} ${bcalday}`) );
 		dispatch( setTodayColor(computeForDate(todayStr, bmonth, bcalday)) );
     }
 }
@@ -129,6 +128,11 @@ export function updateSubjectFromList(e, {value}){
         dispatch( setBirthMonth( months.indexOf(bdayVals[0]) + 1 ) );
 		dispatch( setBirthCalDay( parseInt(bdayVals[1]) ) );
 		dispatch( updateSubject() );
+		
+		// May want to disconnect displayed bday from state of MonthChooser and NumChooser
+		// const fullMonth = moment.months()[months.indexOf(bdayVals[0])];
+		// dispatch( setSubject(`${fullMonth} ${bdayVals[1]}`) );
+
     }
 }
 

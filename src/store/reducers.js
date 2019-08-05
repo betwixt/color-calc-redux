@@ -35,8 +35,8 @@ export const maxDays = (state=31, action) =>
          parseInt(action.payload) :
          state
 
-export const isSubjListCurrent = (state=false, action) =>
-    (action.type === C.SET_SUBJ_LIST_CURR) ?
+export const subject = (state="", action) => 
+     (action.type === C.SET_SUBJECT) ?
          action.payload :
          state
 		 
@@ -88,7 +88,7 @@ export default combineReducers({
     daySelectVals,
     maxDays
   }),
-  isSubjListCurrent,
+  subject,
   bdayOptions,
   todayColor,
   chosenDate,

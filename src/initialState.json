@@ -13,7 +13,7 @@
             false, false, false, false, false, false, false ],
 		"maxDays": "31"
     },
-	"isSubjListCurrent": true,
+	"subject": "---",
 	"bdayOptions": [],
     "todayColor": "0",
     "chosenDate": "2017-11-1",
