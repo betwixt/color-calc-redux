@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Icon, Modal, Header, Button, Form, Dropdown, } from 'semantic-ui-react';
+import { Icon, Modal, Header, Button, Form, Dropdown, Label, Accordion, } from 'semantic-ui-react';
 
 import { colorInfo } from '../colorData.js'
 import NumChooser  from '../containers/NumChooserWrap';
@@ -43,11 +43,22 @@ class Subject extends Component {
 	// Make call to backend
 	this.props.saveBday(this.state.label);
   }
+  
+  componentWillReceiveProps(nextProps){
+	  if (this.state.showLink) {
+		  return;
+	  }
+	  if (this.props.bdayString !== nextProps.bdayString) {
+		  // Get current label and ask if current bday should be saved [DID NOT Implement]
+		  
+		  this.setState({ label: "", showLink: true})
+	  }
+  }
 
   render() {
 	const now = new Date()
 	const today = now.toDateString();
-	let bg = colorInfo.get(this.props.todayCode).bg;
+	let c = colorInfo.get(this.props.todayCode);
 	const {label} = this.state;
 
     return ( 
@@ -78,14 +89,17 @@ class Subject extends Component {
 						</Form.Group>
 					</Form>
 				)}
-								</p>
+				</p>
 			</div>
-			<p id="today"> Today's Color </p>
-			<Button  onClick={this.props.updatePane} color={bg} >
+			<p className="subtitle">Today's Color</p>
+			<Label circular color={c.bg} style={{marginRight: "10px"}}>
+				{c.title}
+			</Label>
+			<button className="linky" onClick={this.props.updatePane} >
 				 More Info
-			</Button>
+			</button>
 		</div> 
-		<p> {today}  </p>
+		<p style={{font: "12px Century Gothic", fontStyle: "oblique"}}> {today}  </p>
 	  </div>
     );
 
@@ -93,6 +107,7 @@ class Subject extends Component {
 }
 
 Subject.propTypes = {
+	bdayString: PropTypes.string,
 	todayCode: PropTypes.number,
 	updatePane: PropTypes.func,
 }
@@ -101,37 +116,90 @@ export {Subject}
 
 // Section with input field for target day of calculation, trigger to calculate for week
 class CalcInput extends Component {
-  render() {
-	  
-    let holder;
+  state = { 
+	activeIndex: -1, 
+	dateVal: '',
+  };
+  
+  // Handler for Accordion
+  handleClick = (e, titleProps) => {
+    const { index } = titleProps
+    const { activeIndex } = this.state
+    const newIndex = activeIndex === index ? -1 : index
+
+    this.setState({ activeIndex: newIndex });
+	this.props.showTargetWeek();
+  }
+  // Handler when date input field gets a new value
+  handleChange = (e) => {
+	  console.log(`target val is ${e.target.value}`)
+	let v = e.target.value;
+    this.setState({dateVal: v});  // local state
+	// global state
+	this.props.setChosenDate(v);
+	this.props.calculateColor(); 
+	if (v === "") {
+		this.setState({ activeIndex: -1 });
+	} else {
+		this.props.showTargetWeek()
+	}
+  }
+  // Check if reset is needed, initiated by updateSubject action
+  componentWillReceiveProps(nextProps){
+	if (this.props.resetTargets) {
+		this.setState({dateVal: ""});
+		this.handleChange({target: {value:""}}); // create event object with new value
+
+	}
+  }
+  // After reset occurred, it's no longer needed, so set to false
+  componentDidUpdate() {
+	if (this.props.resetTargets) {
+		this.props.setResetTargets(false);
+	} 
+  }
+  
+  render() {	  
 	// Initial values
-	const now = new Date()
-	let initDateStr = new Date(+now - now.getTimezoneOffset() * 60 * 1000).toISOString().slice(0,10);
-	this.props.setChosenDate(initDateStr);
-    console.log("Init target is " + initDateStr);
-	
+	const { activeIndex } = this.state
+    console.log(`chosenCode is ${this.props.chosenCode}, reset is ${this.props.resetTargets}`);
+	let c = colorInfo.get(this.props.chosenCode);
+
     return ( 
         <div>
-			<p> - -  </p>
-			<Header as="h3"> CALCULATIONS section </Header>
-            <div id="choosing">
-                <p>  Choose a Day:  </p>
-                <input type="date" 
-                       defaultValue={initDateStr}
-                       ref={input => holder = input}
-                       onChange={() => this.props.setChosenDate(holder.value)} />
-                <button className="pickDay"  onClick={this.props.showChosenDayColor} >
-                    MY COLOR for this Day
-                </button>
-            </div>
-            <div id="barbutton">
-                <button  onClick={this.props.showTargetWeek}>
-                   SHOW Week of Colors
-                </button>
-            </div>	
-			<div id="bar">
-                <WeekBar />
-			</div> 
+			<h1 style={{marginTop: "12px"}}> ~~~ Calculations ~~~ </h1>
+			<p className="minor"> Please choose a Target Day:  </p>
+
+			<p>
+				<input id="targetDay"
+				   type="date" 
+				   value = {this.state.dateVal}
+				   onChange={this.handleChange} 
+				/> 
+				{ this.props.chosenCode !== 0 &&
+					<>
+					<Label circular color={c.bg} style={{marginLeft: "10px", marginRight: "10px"}}>
+						{c.title}
+					</Label>
+					<button className="linky" onClick={this.props.showChosenDayColor} >
+						More Info
+					</button>
+					</>
+				}
+			</p>
+
+			<Accordion>
+				<Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
+				  <Icon name='dropdown' />
+				  See colors for 7 days
+				</Accordion.Title>
+				<Accordion.Content active={activeIndex === 0}>
+					<div style={{display: "table"}}>
+						<WeekBar />
+					</div>
+				</Accordion.Content>
+			</Accordion>
+
         </div>
     );
 
@@ -140,9 +208,13 @@ class CalcInput extends Component {
 
 CalcInput.propTypes = {
 	setChosenDate: PropTypes.func,
+	calculateColor: PropTypes.func,
     showTodayColor: PropTypes.func,
     showChosenDayColor: PropTypes.func,
-    showTargetWeek: PropTypes.func
+    showTargetWeek: PropTypes.func,
+    setResetTargets: PropTypes.func,
+	chosenCode: PropTypes.number,
+	resetTargets: PropTypes.bool,
 }
 export {CalcInput}
 
@@ -157,6 +229,7 @@ class SubjectSelection extends Component {
 	this.props.getSubjectsFromDB();
    }	
 
+  // Handlers for 'Enter a Birthday' modal
   handleOpen = () => this.setState({ modalOpen: true })
   handleClose = () => this.setState({ modalOpen: false })  
   setAndClose = () => {
@@ -224,6 +297,7 @@ class SubjectSelection extends Component {
   }
 }
 SubjectSelection.propTypes = {
+	setSubject: PropTypes.func,
 	setFromList: PropTypes.func,
 	getSubjectsFromDB: PropTypes.func,
 	bdayOptions: PropTypes.array,

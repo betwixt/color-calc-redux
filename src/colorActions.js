@@ -64,6 +64,18 @@ export const setChosenDate = dateStr =>
 		payload: dateStr
 	})
 
+export const setChosenDayColor = num =>
+	({
+		type: C.SET_CHOSENDAYCOLOR,
+		payload: num
+	})
+	
+export const setResetTargets = bool =>
+	({
+		type: C.SET_RESET,
+		payload: bool
+	})
+	
 export const setColorPane = num =>
 	({
 		type: C.SET_COLORPANE,
@@ -100,8 +112,8 @@ export function showTodayColor(){
 }
 
 
-// Will be called by the buttons that select subject
-// Change state for subjectString and todayColor
+// Called by the buttons that select subject
+// Change state for subjectString and todayColor; clear the input values in CalcInput component
 export function updateSubject(){
 
 	return (dispatch, getState) => {
@@ -116,6 +128,8 @@ export function updateSubject(){
 
 		dispatch( setSubject(`${moment.months()[bmonth-1]} ${bcalday}`) );
 		dispatch( setTodayColor(computeForDate(todayStr, bmonth, bcalday)) );
+		dispatch( setResetTargets(true) );
+
     }
 }
 
@@ -172,9 +186,17 @@ export function getSubjectsFromDB() {
 	}
 }	  
 
+export function calculateChosenDayColor() {
+    return (dispatch, getState) => {
+		let chosenDate = getState().chosenDate;
+		let code = (chosenDate === "") ? 0 : computeForDate(chosenDate, getState().bmonth, getState().bcalday);
+        dispatch( setChosenDayColor(code) );
+    }
+}
+
 export function showChosenDayColor() {
 	return (dispatch, getState) => {
-		dispatch( setColorPane(computeForDate(getState().chosenDate, getState().bmonth, getState().bcalday) ) );
+		dispatch( setColorPane(getState().chosenDayColor) ) ;
 	}
 }
 
@@ -193,6 +215,6 @@ export function showTargetWeek() {
         dispatch( setBarInfo(bar) );
         dispatch( setWeekActive(true) );
         dispatch( setWeekSelect(0) );
-		dispatch( setColorPane(bar[0].colorNum) );
+		// dispatch( setColorPane(bar[0].colorNum) );
 	}
 }

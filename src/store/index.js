@@ -10,7 +10,7 @@ const consoleMessages = store => next => action => {
     // console.log(`dispatching action => ${action.type}`)
     result = next(action)
 
-    let { bmonth, bcalday, birthval, subject, bdayOptions, todayColor, chosenDate, colorPane, weekbar} = store.getState()
+    let { bmonth, bcalday, birthval, subject, bdayOptions, todayColor, chosenDate, chosenDayColor, resetTargets, colorPane, weekbar} = store.getState()
 
     console.log(`
 
@@ -18,6 +18,8 @@ const consoleMessages = store => next => action => {
         maxDays: ${birthval.maxDays}
 		subject: ${subject}
         chosenDate: ${chosenDate}
+		chosenDayColor: ${chosenDayColor}
+		resetTargets: ${resetTargets}
         colorPane: ${colorPane}
         todayColor: ${todayColor}
         bdayOptions size: ${bdayOptions.length}

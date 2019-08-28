@@ -50,13 +50,13 @@ html {
 
 h1 {
   margin: 5px;
-  font-size: 24px;
+  font: 24px "Satisfy";
   font-weight: bold;
 }
 h3 {
-  margin: 5px;
-  font-size: 20px;
   text-align: left;
+  font: 20px "Century Gothic";
+
 
 }
 
@@ -123,19 +123,26 @@ h3 {
 /*    border: 2px solid green; */
 }
 
-.minor {
-	font: 14px "Century Gothic";
-}
-
 .headline{
 	font: 48px "Satisfy";
 	margin-left: 24px;
 	color: DodgerBlue;
 }
 
+.subtitle {
+    font: 14px "Felix Titling";
+    font-weight: bold;
+    margin: 0px 10px 0px 0px;
+    display: inline-block;
+}
+
+.minor {
+	font: 14px "Century Gothic";
+}
+
 .linky {
      background:none;
-     color:inherit;
+     /*color:inherit;*/
      border:none; 
      padding:0!important;
      font: inherit;
@@ -181,12 +188,6 @@ button{
     margin-right: 15px;
 }
 
-#today {
-    font: 12px "Felix Titling";
-    font-weight: bold;
-    margin: 0px 10px 0px 0px;
-    display: inline-block;
-}
 
 #choosing  {
     text-align: left;
@@ -246,14 +247,13 @@ button{
 
 
 #bar {
-    margin-top: 10px;
     display: table;
 }
 
 .baractive {
     display: block-inline;
-    margin-left: 25px;
-    margin-top: 20px;
+    margin-left: 5px;
+    margin-top: 5px;
     height: 103px;
     border: 3px solid orange;
 }
@@ -261,8 +261,8 @@ button{
 .barhide {
   visibility: hidden;
     display: block-inline;
-    margin-left: 25px;
-    margin-top: 20px;
+    margin-left: 5px;
+    margin-top: 5px;
     height: 103px;
     border: 3px solid orange;
 }

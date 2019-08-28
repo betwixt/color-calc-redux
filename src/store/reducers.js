@@ -55,7 +55,17 @@ export const chosenDate = (state="", action) =>
          action.payload :
          state
 		 
-export const colorPane = (state=0, action) =>
+export const chosenDayColor = (state=0, action) =>
+    (action.type === C.SET_CHOSENDAYCOLOR) ?
+         parseInt(action.payload) :
+         state
+		 
+export const resetTargets = (state=false, action) =>
+    (action.type === C.SET_RESET) ?
+         action.payload :
+         state
+		 
+ export const colorPane = (state=0, action) =>
     (action.type === C.SET_COLORPANE) ?
          parseInt(action.payload) :
          state
@@ -79,7 +89,7 @@ export function weekSelectVals(state = [true, false, false, false, false, false,
     return state;
 }
 
-
+// IMPORTANT: names need to match fields in initialState.json
 export default combineReducers({
   bmonth,
   bcalday,
@@ -92,6 +102,8 @@ export default combineReducers({
   bdayOptions,
   todayColor,
   chosenDate,
+  chosenDayColor,
+  resetTargets,
   colorPane,
   weekbar: combineReducers({
 	weekActive,

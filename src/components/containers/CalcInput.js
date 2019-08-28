@@ -1,15 +1,25 @@
 import { CalcInput } from '../ui/Parts'
 import { connect } from 'react-redux'
-import { setChosenDate, showTodayColor, showTargetWeek, showChosenDayColor } from '../../colorActions'
+import { setChosenDate, calculateChosenDayColor, setResetTargets, showTodayColor, showTargetWeek, showChosenDayColor } from '../../colorActions'
 
 
 
-const mapStateToProps = state  => ({})
+const mapStateToProps = state  => 
+    ({
+        chosenCode: parseInt(state.chosenDayColor),
+        resetTargets: state.resetTargets,
+     })
 
 const mapDispatchToProps = dispatch =>
     ({
         setChosenDate(str){
             dispatch( setChosenDate(str) )
+        }, 
+        calculateColor(){
+            dispatch( calculateChosenDayColor() )
+        }, 
+        setResetTargets(bool){
+            dispatch( setResetTargets(bool) )
         }, 
         showTodayColor(){
             dispatch( showTodayColor() )

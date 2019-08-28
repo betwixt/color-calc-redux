@@ -13,10 +13,12 @@
             false, false, false, false, false, false, false ],
 		"maxDays": "31"
     },
-	"subject": "---",
+	"subject": "",
 	"bdayOptions": [],
     "todayColor": "0",
-    "chosenDate": "2017-11-1",
+    "chosenDate": "",
+	"chosenDayColor": "0",
+	"resetTargets": false,
     "colorPane" : "0",
     "weekbar": {
 		"weekActive": false,
