@@ -1,4 +1,4 @@
-import { SubjectSelection } from '../ui/Parts'
+import { SubjectSelection } from '../ui/SubjectSelection'
 import { connect } from 'react-redux'
 import { updateSubject, updateSubjectFromList, getSubjectsFromDB } from '../../colorActions'
 

@@ -1,4 +1,4 @@
-import { Subject} from '../ui/Parts'
+import { Subject} from '../ui/Subject'
 import { connect } from 'react-redux'
 import { showTodayColor, createSubject } from '../../colorActions'
 //import { months } from '../colorData'

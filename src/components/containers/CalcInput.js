@@ -1,4 +1,4 @@
-import { CalcInput } from '../ui/Parts'
+import { CalcInput } from '../ui/CalcInput'
 import { connect } from 'react-redux'
 import { setChosenDate, calculateChosenDayColor, setResetTargets, showTodayColor, showTargetWeek, showChosenDayColor } from '../../colorActions'
 

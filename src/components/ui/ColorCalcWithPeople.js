@@ -15,18 +15,15 @@ class ColorCalcWithPeople extends Component {
     return (
 
      <div className="App">		
-		<Intro />
 		<Container>
+		  <Intro />
 		  <Grid>
-			<Grid.Column width={4}>
-				<SubjectSelection />
-			</Grid.Column>
-			<Grid.Column width={12}>
-				<Subject />
-				<CalcInput />		
-				<ColorPane />
-			</Grid.Column>
+			<SubjectSelection />
+			<Subject />
+			<CalcInput />		
 		  </Grid>
+		  <ColorPane />
+
 	    </Container>
     </div>
     );

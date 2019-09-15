@@ -133,9 +133,10 @@ export function updateSubject(){
     }
 }
 
-export function updateSubjectFromList(e, {value}){
+export function updateSubjectFromList(e, {label}){
 
 	return (dispatch, getState) => {
+		let value = e.target.innerText
 		console.log(`value is ${value}`);
 		let bdayVals = value.split(" ");
 
@@ -178,7 +179,7 @@ export function getSubjectsFromDB() {
 				{
 					const subjStr = `${item.birthMonth} ${item.birthNum}`;
 					const labelStr = `${subjStr} ~ ${item.name}`;
-					return {  key: labelStr, text: labelStr, value: `${subjStr} ${item.name}`}
+					return {  key: labelStr, text: subjStr, value: `${subjStr} ${item.name}`}
 				});
 				dispatch(setBdayOptions(options));
 			})
