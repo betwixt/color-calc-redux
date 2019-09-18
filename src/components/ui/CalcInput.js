@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Icon, Label, Accordion, Grid, } from 'semantic-ui-react';
+import { Icon, Label, Accordion, Grid, Menu, } from 'semantic-ui-react';
 
 import { colorInfo } from '../colorData.js'
 import WeekBar from '../containers/WeekBar';
@@ -9,7 +9,7 @@ import WeekBar from '../containers/WeekBar';
 // Section with input field for target day of calculation, trigger to calculate for week
 class CalcInput extends Component {
   state = { 
-	activeIndex: -1, 
+	activeIndex: -1, // For Accordion
 	dateVal: '',
   };
   
@@ -17,10 +17,13 @@ class CalcInput extends Component {
   handleClick = (e, titleProps) => {
     const { index } = titleProps
     const { activeIndex } = this.state
-    const newIndex = activeIndex === index ? -1 : index
+    const newIndex = activeIndex === index ? -1 : index //Toggle if already active
 
     this.setState({ activeIndex: newIndex });
-	this.props.showTargetWeek();
+	if (newIndex === 1) {
+		this.props.showTargetWeek();
+	} else if (newIndex === 1) {
+	}
   }
   // Handler when date input field gets a new value
   handleChange = (e) => {
@@ -31,7 +34,7 @@ class CalcInput extends Component {
 	this.props.setChosenDate(v);
 	this.props.calculateColor(); 
 	if (v === "") {
-		this.setState({ activeIndex: -1 });
+		this.setState({ activeIndex: -1 }); //Occurs when Birthday has been changed
 	} else {
 		this.props.showTargetWeek()
 	}
@@ -58,53 +61,60 @@ class CalcInput extends Component {
 	let c = colorInfo.get(this.props.chosenCode);
 
     return ( 
-        <Grid stackable >
-		  <Grid.Row  columns={2} >
-
-			<Grid.Column width={6}>
+	
+        <Grid.Column width={16}>
 			<h1 style={{marginTop: "12px"}}> ~~~ Calculations ~~~ </h1>
-			<p className="minor"> Please choose a Target Day:  </p>
-
-			<p>
+			<div>
+				<span className="minor"> Target Day:  </span>
 				<input id="targetDay"
-				   type="date" 
-				   value = {this.state.dateVal}
-				   onChange={this.handleChange} 
-				/> 
-				{ this.props.chosenCode !== 0 &&
-					<>
-					<Label circular color={c.bg} style={{marginLeft: "10px", marginRight: "10px"}}>
-						{c.title}
-					</Label>
-					<button className="linky" onClick={this.props.showChosenDayColor} >
-						More Info
-					</button>
-					</>
-				}
-			</p>
-			</Grid.Column>
-
-			<Grid.Column width={10}>
-			<Accordion fluid >
+						   type="date" 
+						   value = {this.state.dateVal}
+						   onChange={this.handleChange} 
+						   style={{marginLeft:"10px"}}
+				/> 			
+			</div>
+			
+			<Accordion>
 				<Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
-				  <Icon name='dropdown' />
-				  See colors for 7 days
+					<Icon name='dropdown' />
+					Calculate for One Day
 				</Accordion.Title>
-				<Accordion.Content active={activeIndex === 0 && this.state.dateVal !== ''}>
+				<Accordion.Content active={activeIndex === 0}>
+  					<div>
+
+						{ this.props.chosenCode !== 0 &&
+							<>
+							<Label circular color={c.bg} style={{marginLeft: "10px", marginRight: "10px"}}>
+								{c.title}
+							</Label>
+							<button className="linky" onClick={this.props.showChosenDayColor} >
+								More Info
+							</button>
+							</>
+						}
+					</div>
+				</Accordion.Content>
+
+				<Accordion.Title active={activeIndex === 1} index={1} onClick={this.handleClick}>
+				  <Icon name='dropdown' />
+				  Calculate for One Week
+				</Accordion.Title>
+				<Accordion.Content active={activeIndex === 1 && this.state.dateVal !== ''}>
 					<div style={{display: "table"}}>
 						<WeekBar />
 					</div>
 				</Accordion.Content>
 			</Accordion>
-			</Grid.Column>
-		  </Grid.Row>
 
-        </Grid>
+
+        </Grid.Column>
     );
 
   }
 }
 
+			  
+			  
 CalcInput.propTypes = {
 	setChosenDate: PropTypes.func,
 	calculateColor: PropTypes.func,

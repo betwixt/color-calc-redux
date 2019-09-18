@@ -68,6 +68,7 @@ class Subject extends Component {
 				)}
 				</p>
 			</div>
+			
 			<p className="subtitle">Today's Color</p>
 			<Label circular color={c.bg} style={{marginRight: "10px"}}>
 				{c.title}

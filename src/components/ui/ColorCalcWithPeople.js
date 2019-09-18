@@ -14,7 +14,7 @@ class ColorCalcWithPeople extends Component {
   render() {
     return (
 
-     <div className="App">		
+     <div>		
 		<Container>
 		  <Intro />
 		  <Grid>

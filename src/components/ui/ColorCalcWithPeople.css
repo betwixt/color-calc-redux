@@ -70,9 +70,11 @@ h3 {
 */
 
 #selectRow {
-	background: gray;
+	border: 2px solid gray;
+	border-radius: 8px;
 	display: flex;
-	align-items: baseline;
+/*	justify-content: space-between;
+	align-items: baseline;  */
 }
 .instructions {
   font: 14px "Century Gothic";

@@ -39,13 +39,13 @@ class SubjectSelection extends Component {
 	let sz = {height: 300, width: 500}
 	
     return (
-	<Grid.Row centered columns={4} id="selectRow">
-	  <Grid.Column width={4}>
+	<Grid.Row divided centered columns={3} id="selectRow">
+	  <Grid.Column>
 		<h3> Birthday Selection </h3>
 	  </Grid.Column>
-	  <Grid.Column width={3}>
+	  <Grid.Column>
 	  <Modal 
-	    trigger={<Button className="c-btn" onClick={this.handleOpen}>Enter a Day</Button>} 
+	    trigger={<Button className="c-btn" onClick={this.handleOpen}>Enter a Birthday</Button>} 
 		style={sz} 
 	    open={this.state.modalOpen}
         onClose={this.handleClose}
@@ -64,13 +64,8 @@ class SubjectSelection extends Component {
 	  </Modal>
 	  </Grid.Column>
 	  
-	  <Grid.Column width={1}>
-		<h4> OR </h4>
-	  </Grid.Column>
-
-	  
-	  <Grid.Column width={4}>
-	  <Dropdown item text='Choose From Saved' button={true}>
+	  <Grid.Column>
+	  <Dropdown item text='Choose from Saved' button={true}>
         <Dropdown.Menu>
 		{this.props.bdayOptions.map( item =>
 			<Dropdown.Item onClick={this.props.setFromList} value={item.text}> 
