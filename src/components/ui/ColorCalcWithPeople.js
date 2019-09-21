@@ -17,12 +17,12 @@ class ColorCalcWithPeople extends Component {
      <div>		
 		<Container>
 		  <Intro />
-		  <Grid>
+		  <Grid padded="horizontally">
 			<SubjectSelection />
 			<Subject />
-			<CalcInput />		
+			<CalcInput />	
+		    <ColorPane />			
 		  </Grid>
-		  <ColorPane />
 
 	    </Container>
     </div>

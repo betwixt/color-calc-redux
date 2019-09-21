@@ -8,7 +8,7 @@ import MonthChooser  from '../containers/MonthChooser';
 
 class SubjectSelection extends Component {
   state = { 
-	activeIndex: -1,
+//	activeIndex: -1,
 	modalOpen: false,
   };
   
@@ -24,15 +24,6 @@ class SubjectSelection extends Component {
 	  this.handleClose()
   }
 
-  /*
-  handleClick = (e, titleProps) => {
-    const { index } = titleProps
-    const { activeIndex } = this.state
-    const newIndex = activeIndex === index ? -1 : index
-
-    this.setState({ activeIndex: newIndex })
-  }
-*/
 
   render() {
 //    const { activeIndex } = this.state
@@ -52,7 +43,7 @@ class SubjectSelection extends Component {
 		closeOnDimmerClick={false} 	 
 		closeIcon
 	  >
-		<Modal.Content>
+		<Modal.Content id="modalbox">
 		  <MonthChooser />
 		  <NumChooser />
 		</Modal.Content>
@@ -78,7 +69,7 @@ class SubjectSelection extends Component {
 
 	  </Grid.Column>
 	  
-	  {/* 
+	  {/* // Previous version - selection widget
 	  
 	  <Dropdown
 		 placeholder='Choose from Saved Birthdays'
@@ -86,20 +77,7 @@ class SubjectSelection extends Component {
 		 onChange={this.props.setFromList}
          options={this.props.bdayOptions}
 	   />
-	   
-	  
-	  Switch back to accordion later.. more complicated because have to make a list of clickable items
-      <Accordion>
-        <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
-          <Icon name='dropdown' />
-          Saved Birthdays
-        </Accordion.Title>
-        <Accordion.Content active={activeIndex === 0}>
-          <p>
-            Construct a list  of Subjects from the database
-          </p>
-        </Accordion.Content>
-      </Accordion>
+
 	  */}
 	</Grid.Row>
 	);
@@ -113,31 +91,4 @@ SubjectSelection.propTypes = {
 }
 export {SubjectSelection};
 //============
-/*
-class Base extends Component {
-  render() {
-    return ( 
-        <div> </div> 
-    );
 
-  }
-}
-
-Base.propTypes = {
-    prop1: PropTypes.array,
-    prop2: PropTypes.func,
-    prop3: PropTypes.bool.isRequired
-}
-export default Subject;
-
-        <Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
-          <Icon name='dropdown' />
-          Enter A Birthday
-        </Accordion.Title>
-        <Accordion.Content active={activeIndex === 0}>
-            <MonthChooser />
-            <NumChooser />	
-			<button className="c-btn"> Select It! </button>
-        </Accordion.Content> 
-	  
-*/

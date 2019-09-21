@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Icon, Label, Accordion, Grid, Menu, } from 'semantic-ui-react';
+import { Icon, Label, Accordion, Grid, } from 'semantic-ui-react';
 
 import { colorInfo } from '../colorData.js'
 import WeekBar from '../containers/WeekBar';
@@ -61,9 +61,12 @@ class CalcInput extends Component {
 	let c = colorInfo.get(this.props.chosenCode);
 
     return ( 
+		<>
+		<Grid.Row>
+		<h1> ~~~ Calculations ~~~ </h1>
+		</Grid.Row>
 	
-        <Grid.Column width={16}>
-			<h1 style={{marginTop: "12px"}}> ~~~ Calculations ~~~ </h1>
+        <Grid.Column width={9}>
 			<div>
 				<span className="minor"> Target Day:  </span>
 				<input id="targetDay"
@@ -79,8 +82,8 @@ class CalcInput extends Component {
 					<Icon name='dropdown' />
 					Calculate for One Day
 				</Accordion.Title>
-				<Accordion.Content active={activeIndex === 0}>
-  					<div>
+				<Accordion.Content active={activeIndex === 0 && this.state.dateVal !== ''}>
+  					
 
 						{ this.props.chosenCode !== 0 &&
 							<>
@@ -92,7 +95,7 @@ class CalcInput extends Component {
 							</button>
 							</>
 						}
-					</div>
+					
 				</Accordion.Content>
 
 				<Accordion.Title active={activeIndex === 1} index={1} onClick={this.handleClick}>
@@ -100,19 +103,20 @@ class CalcInput extends Component {
 				  Calculate for One Week
 				</Accordion.Title>
 				<Accordion.Content active={activeIndex === 1 && this.state.dateVal !== ''}>
-					<div style={{display: "table"}}>
 						<WeekBar />
-					</div>
+					
 				</Accordion.Content>
 			</Accordion>
 
 
         </Grid.Column>
+		</>
     );
 
   }
 }
 
+// 					<div style={{display: "table"}}>  </div>
 			  
 			  
 CalcInput.propTypes = {

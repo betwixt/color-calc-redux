@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
-// import './App.css';
+import {Icon} from 'semantic-ui-react';
+
+import { colorInfo } from '../colorData.js'
 
 // WeekBar - Expected props:  
 //   *startDay - Date for first day in the bar
@@ -79,6 +81,7 @@ class BarSquare extends React.Component {
 
   render() {
     var c;
+	let icolor = colorInfo.get(this.props.colorNum).bg;
     if (this.props.highlight)  
        c = "barselect";
     else
@@ -88,6 +91,7 @@ class BarSquare extends React.Component {
         <div onClick={() => this.doClickAct()} className={c}>
             <p className="weekday"> {this.props.dayName} </p>
             <p className="calnum"> {this.props.dayNum} </p>
+			<Icon color={icolor} name="eye" />
             <p className="sqtext"> {this.props.colorName} </p>
         </div>
     );
