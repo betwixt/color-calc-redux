@@ -8,6 +8,7 @@ const mapStateToProps = state  =>
     ({
         chosenCode: parseInt(state.chosenDayColor),
         resetTargets: state.resetTargets,
+        noSubject: (parseInt(state.todayColor) === 0),
      })
 
 const mapDispatchToProps = dispatch =>

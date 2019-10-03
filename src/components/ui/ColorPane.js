@@ -19,10 +19,7 @@ class ColorPane extends Component {
 
         <div id="colorPane" style={paneStyle} >
             <h2> {title} </h2>
-            <p> 
-                This is where we will say interesting things about what the color stands for!!!!
-            </p>
-            <p> And have a nice background image :-D </p>
+
             <p> {desc} </p>
         </div>
     );

@@ -39,6 +39,7 @@ class WeekBar extends Component {
                     setChoice={() => this.props.setWeekday(n)}
                     highlight={this.props.weekdayVals[n]}
                     dayName={info.weekday}
+                    key={info.weekday}
                     dayNum={info.calnum}
                     colorName={info.color}
                     colorNum={info.colorNum}   />

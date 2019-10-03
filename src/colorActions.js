@@ -214,8 +214,10 @@ export function showTargetWeek() {
 		let bar = computeWeekStartingOn(dateObj, getState().bmonth, getState().bcalday);
 		
         dispatch( setBarInfo(bar) );
-        dispatch( setWeekActive(true) );
-        dispatch( setWeekSelect(0) );
+		if (! getState().weekbar.weekActive) {
+			dispatch( setWeekActive(true) );
+		}
+        // dispatch( setWeekSelect(0) );
 		// dispatch( setColorPane(bar[0].colorNum) );
 	}
 }

@@ -37,6 +37,7 @@ class Subject extends Component {
 	const today = now.toDateString();
 	let c = colorInfo.get(this.props.todayCode);
 	const {label} = this.state;
+	const haveSubject = this.props.bdayString.startsWith("--")
 
     return ( 
 	  <Grid.Row>
@@ -47,7 +48,7 @@ class Subject extends Component {
 					<span className="headline"> {this.props.bdayString} </span>
 
 				{this.state.showLink ? (
-					<button className="linky formcover" onClick={this.handleClick} > 
+					<button className="linky formcover" onClick={this.handleClick} disabled={haveSubject} > 
 						Save this birthday 
 					</button>
 				) : (

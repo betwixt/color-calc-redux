@@ -30,7 +30,7 @@ class SubjectSelection extends Component {
 	let sz = {height: 300, width: 500}
 	
     return (
-	<Grid.Row divided centered columns={3} id="selectRow">
+	<Grid.Row centered columns={3} id="selectRow">
 	  <Grid.Column>
 		<h3> Birthday Selection </h3>
 	  </Grid.Column>
@@ -59,7 +59,7 @@ class SubjectSelection extends Component {
 	  <Dropdown item text='Choose from Saved' button={true}>
         <Dropdown.Menu>
 		{this.props.bdayOptions.map( item =>
-			<Dropdown.Item onClick={this.props.setFromList} value={item.text}> 
+			<Dropdown.Item onClick={this.props.setFromList} value={item.text} key={item.key}> 
 				{item.key }
 			</Dropdown.Item>
 		)}
@@ -69,7 +69,7 @@ class SubjectSelection extends Component {
 
 	  </Grid.Column>
 	  
-	  {/* // Previous version - selection widget
+	  {/* // Previous version for list of bdays - selection widget
 	  
 	  <Dropdown
 		 placeholder='Choose from Saved Birthdays'

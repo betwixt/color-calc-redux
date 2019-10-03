@@ -13,7 +13,7 @@
             false, false, false, false, false, false, false ],
 		"maxDays": "31"
     },
-	"subject": "January 1",
+	"subject": "--None--",
 	"bdayOptions": [],
     "todayColor": "0",
     "chosenDate": "",
@@ -23,6 +23,6 @@
     "weekbar": {
 		"weekActive": false,
         "barInfo": [],
-        "weekSelectVals":[true, false, false, false, false, false, false]
+        "weekSelectVals":[false, false, false, false, false, false, false]
     }
 }

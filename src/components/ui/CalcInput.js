@@ -73,6 +73,7 @@ class CalcInput extends Component {
 						   type="date" 
 						   value = {this.state.dateVal}
 						   onChange={this.handleChange} 
+						   disabled={this.props.noSubject}
 						   style={{marginLeft:"10px"}}
 				/> 			
 			</div>
@@ -80,7 +81,7 @@ class CalcInput extends Component {
 			<Accordion>
 				<Accordion.Title active={activeIndex === 0} index={0} onClick={this.handleClick}>
 					<Icon name='dropdown' />
-					Calculate for One Day
+					Calculate for a Day
 				</Accordion.Title>
 				<Accordion.Content active={activeIndex === 0 && this.state.dateVal !== ''}>
   					
@@ -100,7 +101,7 @@ class CalcInput extends Component {
 
 				<Accordion.Title active={activeIndex === 1} index={1} onClick={this.handleClick}>
 				  <Icon name='dropdown' />
-				  Calculate for One Week
+				  Calculate for a Week
 				</Accordion.Title>
 				<Accordion.Content active={activeIndex === 1 && this.state.dateVal !== ''}>
 						<WeekBar />
@@ -128,6 +129,7 @@ CalcInput.propTypes = {
     setResetTargets: PropTypes.func,
 	chosenCode: PropTypes.number,
 	resetTargets: PropTypes.bool,
+	haveSubject: PropTypes.bool,
 }
 export {CalcInput}
 
