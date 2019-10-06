@@ -1,9 +1,14 @@
-import axios from 'axios';
-import * as moment from 'moment';
 
+
+import * as moment from 'moment';
 import C from './colorConstants'
 import {daysInMonth, months} from './components/colorData'
 import {computeForDate, computeWeekStartingOn } from './components'
+
+// import Cookies from 'js-cookie';
+import axios from 'axios';
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 
 // Action Creators: will return an action object with type (constant) and payload (some type of argument value)
@@ -151,17 +156,22 @@ export function updateSubjectFromList(e, {label}){
     }
 }
 
+var BACKEND_URL = 'http://127.0.0.1:8000'
+var endpoint = BACKEND_URL + '/calc_api/subjects/'
+
 // Called when user clicks Save button in Subject component
 export function createSubject(label){
 
 	return (dispatch, getState) => {
-		const mstr = months[getState().bmonth-1]
-		const obj = { name: label, birthMonth: mstr, birthNum: getState().bcalday }
+
+		// Setup for http request - not needed after axios defaults were set (see near imports)
 		// const csrftoken = Cookies.get('csrftoken')
 		// console.log(`cookie returned - ${csrftoken}`);
-		// console.log(`all cookies empty? - ${document.cookie.split(';') ==""}`);
+		// const config = { headers: {"X-CSRFToken": csrftoken},  }
 		
-		axios.post( 'http://127.0.0.1:8000/calc_api/subjects/', obj )
+		const mstr = months[getState().bmonth-1]
+		const obj = { name: label, birthMonth: mstr, birthNum: getState().bcalday }
+		axios.post(endpoint, obj)
 		   .then(res => { dispatch( getSubjectsFromDB() ); })
 		   .catch ( err => { console.log(`During axios call: ${err}`); })	
 		   
@@ -172,7 +182,7 @@ export function createSubject(label){
 export function getSubjectsFromDB() {
 	return (dispatch, getState) => {
 
-	axios.get('http://127.0.0.1:8000/calc_api/subjects/')
+	axios.get(endpoint)
 		.then(res => 
 			{  
 			  	let options = res.data.map(item => 
