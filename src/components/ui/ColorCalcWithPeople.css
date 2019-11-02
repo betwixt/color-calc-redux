@@ -13,6 +13,28 @@ html {
 	margin-top: -14px;
 }
 
+/* === Nav bar === */
+#navs {
+    padding: 2px 0px 15px 0px;
+}	
+
+#header{
+    margin-bottom: 28px;
+	margin-top: 12px;
+	background-color: lightsteelblue;
+	display: flex;
+}
+#banner-img {
+	display: inline;
+	padding: 25px 0px 10px 0px;
+}
+
+h1 {
+  margin: 5px;
+  font: 24px "Satisfy";
+  font-weight: bold;
+}
+
 /* === SubjectSelection - Modal and Grid Row  */
 
 #modalbox {
@@ -50,35 +72,6 @@ html {
 
 /* ================================= */
 
-.App {
-  /*  text-align: center;
- font: 14px "Times New Roman", Futura, sans-serif; */
-}
-
-
-.App-header {
-  background-color: indigo;
-  height: 100px;
-  padding: 20px;
-  color: orange;
-  width: 900px;
-  display: inline-block;
-  text-align: center;
-}
-
-header{
-    padding: 15px;
-    margin-bottom: 28px;
-    display: flex;
-    justify-content: space-between;
-	border: 1px solid black;
-}
-
-h1 {
-  margin: 5px;
-  font: 24px "Satisfy";
-  font-weight: bold;
-}
 
 
 
