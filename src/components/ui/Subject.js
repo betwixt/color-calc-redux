@@ -11,7 +11,7 @@ class Subject extends Component {
   
   handleInput = (e, { name, value }) => this.setState({ label: value })
   handleClick = () => this.setState({showLink: false})
-  handleCancel = () => this.setState({showLink: true})
+  handleCancel = () => this.setState({label: "", showLink: true})
   
   handleSubmit = () => {
 	console.log(`label is ${this.state.label}`);
@@ -21,6 +21,7 @@ class Subject extends Component {
 	this.props.saveBday(this.state.label);
   }
   
+  // Called when... ?
   componentWillReceiveProps(nextProps){
 	  if (this.state.showLink) {
 		  return;
@@ -43,7 +44,7 @@ class Subject extends Component {
 	  <Grid.Row>
         <div> 
 			<div>
-				<p style={{marginBottom:"5px"}} > 
+				<div style={{marginBottom:"5px"}} > 
 					<span className="minor"> BIRTHDAY: </span>
 					<span className="headline"> {this.props.bdayString} </span>
 
@@ -62,12 +63,12 @@ class Subject extends Component {
 								placeholder='Label' 
 							/>
 							<Form.Button size='mini' content='Save' />  
-							<Form.Button size='mini' content='Cancel' />  
+							<Form.Button size='mini' content='Cancel' onClick={this.handleCancel} />  
 
 						</Form.Group>
 					</Form>
 				)}
-				</p>
+				</div>
 			</div>
 			
 			<p className="subtitle">Today's Color</p>

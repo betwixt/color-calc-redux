@@ -163,36 +163,47 @@ var endpoint = BACKEND_URL + '/calc_api/subjects/'
 export function createSubject(label){
 
 	return (dispatch, getState) => {
-
 		// Setup for http request - not needed after axios defaults were set (see near imports)
 		// const csrftoken = Cookies.get('csrftoken')
 		// console.log(`cookie returned - ${csrftoken}`);
 		// const config = { headers: {"X-CSRFToken": csrftoken},  }
-		
+
 		const mstr = months[getState().bmonth-1]
 		const obj = { name: label, birthMonth: mstr, birthNum: getState().bcalday }
 		axios.post(endpoint, obj)
 		   .then(res => { dispatch( getSubjectsFromDB() ); })
-		   .catch ( err => { console.log(`During axios call: ${err}`); })	
-		   
-	    
+		   .catch ( err => { console.log(`During axios call: ${err}`); })		    
     }
 }
 
+export function deleteSubjects(list) {
+
+	// debugger
+	return async (dispatch, getState) => {
+		let result
+		list.forEach( id => {		  
+/* 		  result = axios.delete(`${endpoint}${id}/`)
+		  console.log(result) */
+		  axios.delete(`${endpoint}${id}/`)
+			.then(res => { dispatch( getSubjectsFromDB() ); })
+		    .catch ( err => { console.log(`During axios call: ${err}`); })
+	    } )
+    }
+}
+
+	  
 export function getSubjectsFromDB() {
 	return (dispatch, getState) => {
-
-	axios.get(endpoint)
-		.then(res => 
-			{  
+		axios.get(endpoint)
+		.then(res => {  
 			  	let options = res.data.map(item => 
 				{
 					const subjStr = `${item.birthMonth} ${item.birthNum}`;
 					const labelStr = `${subjStr} ~ ${item.name}`;
-					return {  key: labelStr, text: subjStr, value: `${subjStr} ${item.name}`}
+					return {  key: labelStr, id: item.id, value: `${subjStr} ${item.name}`}
 				});
 				dispatch(setBdayOptions(options));
-			})
+		})
 		.catch ( err => { console.log(`During axios call: ${err}`); })	
 	}
 }	  

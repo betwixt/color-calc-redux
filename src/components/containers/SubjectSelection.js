@@ -1,6 +1,6 @@
 import { SubjectSelection } from '../ui/SubjectSelection'
 import { connect } from 'react-redux'
-import { updateSubject, updateSubjectFromList, getSubjectsFromDB } from '../../colorActions'
+import { updateSubject, updateSubjectFromList, getSubjectsFromDB, deleteSubjects } from '../../colorActions'
 
 const mapStateToSubjSelectProps = state => 
     ({ 
@@ -17,6 +17,9 @@ const mapDispatchToSubjSelectProps = dispatch =>
         }, 
         getSubjectsFromDB(){
             dispatch( getSubjectsFromDB() )
+        }, 
+        doDeletes(list){
+            dispatch( deleteSubjects(list) )
         }, 
     })
 
